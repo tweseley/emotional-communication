@@ -1,31 +1,49 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 
 public class UserDB {
+    
+    private Map<Integer, List<Integer>> friendMap;
+    private Map<Integer, String> usernameMap;
 
     public UserDB() {
-        // TODO Auto-generated constructor stub
+        usernameMap = new HashMap<Integer, String>();
+        friendMap = new HashMap<Integer, List<Integer>>();
     }
-    public List<userID>getUser(String name){
-        
+    public List<Integer>getUser(String name){
+        throw new RuntimeException("not implemented");
     }
-    public List<userID>getUser(MACAddress macAddress){
-        
+    
+//    public List<Integer>getUser(MACAddress macAddress){
+//        throw new RuntimeException("not implemented");
+//    }
+    
+    public void createUser(int ID, String name, String username){
+        new User(ID,name,username);
+        usernameMap.put(ID, username);
     }
-    public createUser(List<Attribute> attributes){
-        
+
+    public void deleteUser(int userID){
+        usernameMap.remove(userID);
     }
-    public setUserAttribute(Attribute attribute, UserID userID){
-        
+    public void addFriend(int user, int friend){
+        List<Integer> friends = friendMap.get(user);
+        friends.add(friend);
+        friendMap.put(user, friends);
     }
-    public deleteUser(UserID userID){
-        
+    public void deleteFriend(int user, int friend){
+        List<Integer> friends = new ArrayList<Integer>();
+        for (Integer currentFriend:friendMap.get(user)){
+            if (currentFriend != friend){
+                friends.add(currentFriend);
+            }
+        }
+        friendMap.put(user, friends);
     }
-    public addFriend(UserID userID){
-        
-    }
-    public deleteFriend(UserID, userID){
-        
-    }
-    public getFriends(UserID userID){
-        
+    public List<Integer> getFriends(int userID){
+        return friendMap.get(userID);
     }
 }
